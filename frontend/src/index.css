@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100;
+  }
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Leaflet Custom Styling */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background-color: #090d16 !important;
+  font-family: inherit;
+}
+
+.custom-pond-marker {
+  position: relative;
+}
+
+.pond-pulse {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 40px;
+  height: 40px;
+  background: rgba(14, 165, 233, 0.4);
+  border-radius: 50%;
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.pond-icon-inner {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, #0284c7, #38bdf8);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.9), 0 0 30px rgba(14, 165, 233, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* Glassmorphism utility */
+.glass-panel {
+  background: rgba(15, 23, 42, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.65);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+}
