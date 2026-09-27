@@ -30,6 +30,17 @@ app.add_middleware(
 )
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DIST_DIR = os.path.join(BASE_DIR, "dist")
+if not os.path.exists(DIST_DIR):
+    sibling = os.path.join(os.path.dirname(BASE_DIR), "pond_catchment_frontend", "dist")
+    if os.path.exists(sibling):
+        DIST_DIR = sibling
+
+if os.path.exists(DIST_DIR):
+    from fastapi.staticfiles import StaticFiles
+    assets_dir = os.path.join(DIST_DIR, "assets")
+    if os.path.exists(assets_dir):
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="assets")
 
 
 class PolygonAnalysisRequest(BaseModel):
@@ -50,6 +61,27 @@ class VolumeRecalcRequest(BaseModel):
 
 @app.get("/")
 def root():
+    index_file = os.path.join(DIST_DIR, "index.html")
+    if os.path.exists(index_file):
+        return FileResponse(index_file)
+    return {
+        "status": "ok",
+        "service": "Pond Catchment & Water Harvesting Analysis API",
+        "version": "2.0.0",
+        "phase": "Phase 3 VIVA & Demo",
+        "endpoints": [
+            "/health",
+            "/docs",
+            "/samples",
+            "/analyzeContour",
+            "/analyzeArea",
+            "/calculateVolume"
+        ]
+    }
+
+
+@app.get("/api")
+def api_info():
     return {
         "status": "ok",
         "service": "Pond Catchment & Water Harvesting Analysis API",
